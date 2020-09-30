@@ -1,0 +1,87 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<style>
+
+    body {
+        background-color: #638cb3;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border;
+    }
+
+    input::placeholder {
+        color: #d3d343;
+    }
+
+    .submit {
+        backgorund-color: #68a3e8;
+    }
+
+    .center-column {
+        width: 600px;
+        margin: 20px;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 6px 2px 30px 0px rgba(0,0,0,0.75);
+    }
+
+    .item-row{
+        background-color:  #906abd;
+        margin: 10px;
+        padding: 20px;
+        border-radius: 3px;
+        color: #fff;
+        font-size: 16px;
+        box-shadow: 0px -1px 10px -4px rgba(0,0,0,0.75)
+    }
+
+    .btn-danger {
+        background-color: #ffae19;
+        border-color: #e59400;
+    }
+
+    .text-center {
+        color: white;
+        padding: 20px;
+        background-color: indigo;
+        border-color: white;
+        font-size: 20px;
+        font-family: Alex Brush;
+    }
+
+    p {
+        color: yellow;
+        background-color: indigo;
+        margin: 5px;
+        border-color:white;
+    }
+</style>
+<div class="center-column">
+    <h1 class="text-center"><b>TODO APPLICATION</b></h1>
+
+    <form method='POST' action="/">
+        {% csrf_token %}
+        {{ form.title }}
+        <input class="btn btn-primary"type="submit" value="Create Task"/>
+    </form>
+
+    <div class="todo-list">
+            {% for task in tasks %}
+                <div class="item-row">
+                    <a class="btn btn-sm btn-info" href="{% url 'update' task.id %}">Update</a>
+                    <a class="btn btn-sm btn-danger" href="{% url 'delete' task.id %}">Delete</a>
+
+                    {% if task.completed == True %}
+                        <strike> {{task}}</strike>
+                    {% else %}
+                        <span>{{task}} </span>
+                        <p class="btn"> {{task.date}}</p>
+                    {% endif %}
+
+                </div>
+            {% endfor %}
+    <div>
+</div>
